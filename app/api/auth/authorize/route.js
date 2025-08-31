@@ -1,11 +1,20 @@
+// app/api/auth/authorize/route.js
 export async function GET() {
   const clientId = process.env.ML_CLIENT_ID;
   const redirectUri = process.env.ML_REDIRECT_URI;
 
-  const url = new URL('https://auth.mercadolibre.com.mx/authorization');
-  url.searchParams.set('response_type', 'code');
-  url.searchParams.set('client_id', clientId);
-  url.searchParams.set('redirect_uri', redirectUri);
+  if (!clientId || !redirectUri) {
+    return new Response(
+      'Faltan variables ML_CLIENT_ID o ML_REDIRECT_URI',
+      { status: 500 }
+    );
+  }
 
-  return Response.redirect(url.toString(), 302);
+  const url =
+    https://auth.mercadolibre.com.mx/authorization +
+    ?response_type=code +
+    &client_id=${encodeURIComponent(clientId)} +
+    &redirect_uri=${encodeURIComponent(redirectUri)};
+
+  return Response.redirect(url);
 }
