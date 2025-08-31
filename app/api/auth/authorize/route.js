@@ -4,10 +4,7 @@ export async function GET() {
   const redirectUri = process.env.ML_REDIRECT_URI;
 
   if (!clientId || !redirectUri) {
-    return new Response(
-      'Faltan variables ML_CLIENT_ID o ML_REDIRECT_URI',
-      { status: 500 }
-    );
+    return new Response('Faltan variables ML_CLIENT_ID o ML_REDIRECT_URI', { status: 500 });
   }
 
   const url =
